@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom'; 
+import { useLocation, Link } from 'react-router-dom'; 
 import './FieldsPage.css'; 
 
 const FieldsPage = () => {
@@ -59,6 +59,7 @@ const FieldsPage = () => {
             ) : (
                 <p>No fields available</p>
             )}
+            <Link to="/user-records" state={{ userName }} className="link">View User Records</Link>
         </div>
     );
 };
