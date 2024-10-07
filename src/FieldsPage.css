@@ -64,3 +64,15 @@ p {
     color: #666;
     font-size: 16px;
 }
+
+.link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #2c662d;; 
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
