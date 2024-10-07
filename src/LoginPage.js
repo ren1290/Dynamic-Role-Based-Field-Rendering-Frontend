@@ -39,7 +39,7 @@ const LoginPage = () => {
             });
 
             if (response.status === 200) {
-                navigate('/fields', { state: { fields: response.data } });
+                navigate('/fields', { state: { fields: response.data, userName} });
                 setError('');
             }
         } catch (err) {
