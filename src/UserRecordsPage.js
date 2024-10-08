@@ -5,7 +5,7 @@ import './UserRecordsPage.css';
 
 const UserRecordsPage = () => {
     const location = useLocation();
-    const { userName } = location.state || {}; // Get the userName from the state
+    const { userName } = location.state || {}; 
     const [userRecords, setUserRecords] = useState([]);
 
     useEffect(() => {
@@ -21,7 +21,6 @@ const UserRecordsPage = () => {
         fetchUserRecords();
     }, [userName]);
 
-    // Group records by recordId
     const groupedRecords = userRecords.reduce((acc, record) => {
         const { recordId, userName, value } = record;
 
@@ -29,7 +28,6 @@ const UserRecordsPage = () => {
             acc[recordId] = { recordId, userName, firstName: '', lastName: '', designation: '', phone: '', address: '' };
         }
 
-        // Assign values based on fieldId
         switch (record.fieldId) {
             case 1:
                 acc[recordId].firstName = value;
@@ -41,10 +39,10 @@ const UserRecordsPage = () => {
                 acc[recordId].designation = value;
                 break;
             case 4:
-                acc[recordId].phone = value;  // Assuming fieldId 4 is for phone
+                acc[recordId].phone = value;  
                 break;
             case 5:
-                acc[recordId].address = value; // Assuming fieldId 5 is for address
+                acc[recordId].address = value; 
                 break;
             default:
                 break;
@@ -53,7 +51,6 @@ const UserRecordsPage = () => {
         return acc;
     }, {});
 
-    // Convert groupedRecords back to an array
     const recordsArray = Object.values(groupedRecords);
 
     return (
