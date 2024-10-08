@@ -25,7 +25,7 @@ const UserRecordsPage = () => {
         const { recordId, userName, value } = record;
 
         if (!acc[recordId]) {
-            acc[recordId] = { recordId, userName, firstName: '', lastName: '', designation: '', phone: '', address: '' };
+            acc[recordId] = { recordId, userName, firstName: '', lastName: '', gender: '', designation: '', phone: '', address: '', country: '' };
         }
 
         switch (record.fieldId) {
@@ -36,12 +36,18 @@ const UserRecordsPage = () => {
                 acc[recordId].lastName = value;
                 break;
             case 3:
-                acc[recordId].designation = value;
+                acc[recordId].gender = value; 
                 break;
             case 4:
-                acc[recordId].phone = value;  
+                acc[recordId].designation = value;
                 break;
             case 5:
+                acc[recordId].phone = value;  
+                break;
+            case 6:
+                acc[recordId].country = value; 
+                break;
+            case 7:
                 acc[recordId].address = value; 
                 break;
             default:
@@ -63,11 +69,13 @@ const UserRecordsPage = () => {
                             <th>Record ID</th>
                             <th>First Name</th>
                             <th>Last Name</th>
+                            <th>Gender</th> 
                             <th>Designation</th>
                             {userName === 'userB' && (
                                 <>
                                     <th>Phone</th>
                                     <th>Address</th>
+                                    <th>Country</th> 
                                 </>
                             )}
                         </tr>
@@ -78,13 +86,16 @@ const UserRecordsPage = () => {
                                 <td>{record.recordId}</td>
                                 <td>{record.firstName}</td>
                                 <td>{record.lastName}</td>
+                                <td>{record.gender}</td> 
                                 <td>{record.designation}</td>
                                 {userName === 'userB' && (
                                     <>
                                         <td>{record.phone || 'N/A'}</td>
                                         <td>{record.address || 'N/A'}</td>
+                                        <td>{record.country || 'N/A'}</td> 
                                     </>
                                 )}
+                                
                             </tr>
                         ))}
                     </tbody>
