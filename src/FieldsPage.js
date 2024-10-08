@@ -22,7 +22,7 @@ const FieldsPage = () => {
         const data = Object.entries(inputValues).map(([fieldId, value]) => ({
             userName,              
             fieldId: parseInt(fieldId), 
-            value,                   
+            value,                    
         }));
     
         try {
@@ -38,6 +38,18 @@ const FieldsPage = () => {
         }
     };
 
+    const fieldOptions = {
+        3: [ 
+            { value: 'Male', label: 'Male' },
+            { value: 'Female', label: 'Female' },
+        ],
+        6: [ 
+            { value: 'USA', label: 'USA' },
+            { value: 'Canada', label: 'Canada' },
+            { value: 'UK', label: 'UK' },
+        ],
+    };
+
     return (
         <div className="fieldsContainer">
             <h1 className="header">Fields</h1>
@@ -46,12 +58,38 @@ const FieldsPage = () => {
                     {fields.map((field) => (
                         <div key={field.fieldId} className="formGroup">
                             <label className="label">{field.fieldName}</label>
-                            <input
-                                type="text"
-                                placeholder={field.fieldName} 
-                                className="input" 
-                                onChange={(event) => handleInputChange(field.fieldId, event)} 
-                            />
+                            {field.fieldType === 'text' && (
+                                <input
+                                    type="text"
+                                    placeholder={field.fieldName} 
+                                    className="input" 
+                                    onChange={(event) => handleInputChange(field.fieldId, event)} 
+                                />
+                            )}
+                            {field.fieldType === 'radio' && fieldOptions[field.fieldId].map((option) => (
+                                <label key={option.value}>
+                                    <input
+                                        type="radio"
+                                        value={option.value}
+                                        name={`gender-${field.fieldId}`}
+                                        onChange={(event) => handleInputChange(field.fieldId, event)}
+                                    />
+                                    {option.label}
+                                </label>
+                            ))}
+                            {field.fieldType === 'dropdown' && (
+                                <select
+                                    className="input"
+                                    onChange={(event) => handleInputChange(field.fieldId, event)}
+                                >
+                                    <option value="">Select {field.fieldName}</option>
+                                    {fieldOptions[field.fieldId].map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            )}
                         </div>
                     ))}
                     <button type="submit" className="button">Submit</button>
