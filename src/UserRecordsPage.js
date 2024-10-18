@@ -8,7 +8,7 @@ const UserRecordsPage = () => {
     const { userName } = location.state || {}; // Get userName from location state
     const [userRecords, setUserRecords] = useState([]);
     const [editRecordId, setEditRecordId] = useState(null); // Track which record is being edited
-    const [editedValues, setEditedValues] = useState({});   // Track the edited values
+    const [editedValues, setEditedValues] = useState({}); // Track the edited values
 
     const genderOptions = [
         { value: 'male', label: 'Male' },
@@ -107,6 +107,18 @@ const UserRecordsPage = () => {
             alert("Error updating record");
         }
         setEditRecordId(null); // Exit edit mode
+    };
+
+    // New delete functionality
+    const handleDeleteClick = async (recordId) => {
+        try {
+            await axios.delete(`http://localhost:8080/user-inputs/${recordId}`);
+            setUserRecords(userRecords.filter(record => record.recordId !== recordId));
+            alert("Record deleted successfully");
+        } catch (error) {
+            console.error('Error deleting record:', error);
+            alert("Error deleting record");
+        }
     };
 
     return (
@@ -230,7 +242,10 @@ const UserRecordsPage = () => {
                                     {editRecordId === record.recordId ? (
                                         <button onClick={() => saveChanges(record)}>Save</button>
                                     ) : (
-                                        <button onClick={() => setEditRecordId(record.recordId)}>Edit</button>
+                                        <>
+                                            <button onClick={() => setEditRecordId(record.recordId)}>Edit</button>
+                                            <button onClick={() => handleDeleteClick(record.recordId)}>Delete</button>
+                                        </>
                                     )}
                                 </td>
                             </tr>
